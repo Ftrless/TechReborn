@@ -76,7 +76,7 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 			}
 
 		}
-		blockEntityFusionControlComputer.isMultiblockValid();
+		blockEntityFusionControlComputer.isShapeValid();
 		return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
 	}
 
@@ -90,7 +90,7 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 		super.onSteppedOn(worldIn, pos, state, entityIn);
 		if (worldIn.getBlockEntity(pos) instanceof FusionControlComputerBlockEntity) {
 			if (((FusionControlComputerBlockEntity) worldIn.getBlockEntity(pos)).craftingTickTime != 0
-					&& ((FusionControlComputerBlockEntity) worldIn.getBlockEntity(pos)).isMultiblockValid()) {
+					&& ((FusionControlComputerBlockEntity) worldIn.getBlockEntity(pos)).isShapeValid()) {
 				entityIn.damage(TRDamageTypes.create(worldIn, TRDamageTypes.FUSION), 200F);
 			}
 		}

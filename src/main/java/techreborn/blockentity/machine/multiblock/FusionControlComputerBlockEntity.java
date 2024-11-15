@@ -266,7 +266,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 			inventory.setHashChanged();
 		}
 
-		if (!isMultiblockValid()) {
+		if (!isShapeValid()) {
 			resetCrafter();
 			return;
 		}
@@ -396,6 +396,7 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 				.sync(PacketCodecs.INTEGER, this::getState, this::setState)
 				.sync(PacketCodecs.INTEGER, this::getNeededPower, this::setNeededPower)
 				.sync(Identifier.PACKET_CODEC, this::getCurrentRecipeID, this::setCurrentRecipeID)
+				.syncShapeValue()
 				.addInventory()
 				.create(this, syncID);
 	}

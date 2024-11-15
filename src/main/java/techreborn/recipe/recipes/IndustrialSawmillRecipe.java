@@ -70,7 +70,7 @@ public record IndustrialSawmillRecipe(RecipeType<?> type, List<SizedIngredient> 
 	@Override
 	public boolean canCraft(BlockEntity be) {
 		IndustrialSawmillBlockEntity blockEntity = (IndustrialSawmillBlockEntity) be;
-		if (!blockEntity.isMultiblockValid()) {
+		if (!blockEntity.isShapeValid()) {
 			return false;
 		}
 		return RebornFluidRecipe.super.canCraft(be);

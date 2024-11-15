@@ -74,7 +74,7 @@ public record FluidReplicatorRecipe(RecipeType<?> type, List<SizedIngredient> in
 	@Override
 	public boolean canCraft(BlockEntity be) {
 		FluidReplicatorBlockEntity blockEntity = (FluidReplicatorBlockEntity) be;
-		if (!blockEntity.isMultiblockValid()) {
+		if (!blockEntity.isShapeValid()) {
 			return false;
 		}
 		final BlockPos hole = blockEntity.getPos().offset(blockEntity.getFacing().getOpposite(), 2);
