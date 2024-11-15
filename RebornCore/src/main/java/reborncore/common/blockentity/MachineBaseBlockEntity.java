@@ -310,6 +310,9 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 		if (world == null || world.isClient) {
 			return;
 		}
+
+		link();
+
 		if (crafter != null && isActive(RedstoneConfiguration.Element.RECIPE_PROCESSING)) {
 			crafter.updateEntity();
 		}
