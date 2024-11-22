@@ -35,11 +35,8 @@ import java.util.Set;
 
 public class ChunkEventListeners {
 	public static ChunkPosMultiMap<ChunkEventListener> listeners = new ChunkPosMultiMap<>();
-	private static MinecraftServer server = null;
 
 	public static void init() {
-		ServerLifecycleEvents.SERVER_STARTING.register(minecraftServer -> server = minecraftServer);
-		ServerLifecycleEvents.SERVER_STOPPED.register(minecraftServer -> server = null);
 		ServerLifecycleEvents.SERVER_STOPPED.register(minecraftServer -> serverStopCleanup());
 
 		ServerChunkEvents.CHUNK_LOAD.register((world, chunk) -> {
