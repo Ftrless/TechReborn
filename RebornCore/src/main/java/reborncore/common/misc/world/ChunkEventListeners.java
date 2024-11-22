@@ -43,39 +43,35 @@ public class ChunkEventListeners {
 		ServerLifecycleEvents.SERVER_STOPPED.register(minecraftServer -> serverStopCleanup());
 
 		ServerChunkEvents.CHUNK_LOAD.register((world, chunk) -> {
-			ensureServerThread();
-			Set<ChunkEventListener> cels = listeners.get(world, chunk.getPos());
-			if (cels != null) {
-				for (ChunkEventListener cel : cels) {
-					cel.onLoadChunk();
+			if (!world.isClient()) {
+				Set<ChunkEventListener> cels = listeners.get(world, chunk.getPos());
+				if (cels != null) {
+					for (ChunkEventListener cel : cels) {
+						cel.onLoadChunk();
+					}
 				}
 			}
 		});
 		ServerChunkEvents.CHUNK_UNLOAD.register((world, chunk) -> {
-			ensureServerThread();
-			Set<ChunkEventListener> cels = listeners.get(world, chunk.getPos());
-			if (cels != null) {
-				for (ChunkEventListener cel : cels) {
-					cel.onUnloadChunk();
+			if (!world.isClient()) {
+				Set<ChunkEventListener> cels = listeners.get(world, chunk.getPos());
+				if (cels != null) {
+					for (ChunkEventListener cel : cels) {
+						cel.onUnloadChunk();
+					}
 				}
 			}
 		});
 	}
 
 	public static void onBlockStateChange(World world, ChunkPos chunkPos, BlockPos pos) {
-		if (server.isOnThread()) {
+		if (!world.isClient()) {
 			Set<ChunkEventListener> cels = listeners.get(world, chunkPos);
 			if (cels != null) {
 				for (ChunkEventListener cel : cels) {
 					cel.onBlockUpdate(pos);
 				}
 			}
-		}
-	}
-
-	private static void ensureServerThread() {
-		if (!server.isOnThread()) {
-			throw new RuntimeException("Thread is not server thread!");
 		}
 	}
 

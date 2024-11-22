@@ -37,7 +37,7 @@ public class MultiblockRenderer<T extends MachineBaseBlockEntity> implements Blo
 
 	@Override
 	public void render(T blockEntity, float partialTicks, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, int overlay) {
-		if (blockEntity.renderMultiblock) {
+		if (blockEntity.renderMultiblock && !blockEntity.isShapeValid()) {
 			blockEntity.writeMultiblock(new HologramRenderer(blockEntity.getWorld(), matrixStack, vertexConsumerProvider, 0.4F).rotate(blockEntity.getFacing().getOpposite()));
 		}
 	}
@@ -45,5 +45,10 @@ public class MultiblockRenderer<T extends MachineBaseBlockEntity> implements Blo
 	@Override
 	public boolean rendersOutsideBoundingBox(T blockEntity) {
 		return true;
+	}
+
+	@Override
+	public int getRenderDistance() {
+		return 256;
 	}
 }

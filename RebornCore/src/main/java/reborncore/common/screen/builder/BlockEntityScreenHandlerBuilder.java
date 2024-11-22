@@ -185,8 +185,7 @@ public class BlockEntityScreenHandlerBuilder {
 			return this.sync(PacketCodecs.BOOL, baseBlockEntity::isShapeValid, baseBlockEntity::setShapeValid);
 		}
 
-		RebornCore.LOGGER.error(this.inventory + " is not an instance of MachineBaseBlockEntity! Shape cannot be synced.");
-		return this;
+		throw new IllegalStateException(this.inventory + " is not an instance of MachineBaseBlockEntity! Shape cannot be synced.");
 	}
 
 	public BlockEntityScreenHandlerBuilder syncCrafterValue() {
